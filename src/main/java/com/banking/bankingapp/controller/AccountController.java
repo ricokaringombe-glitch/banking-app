@@ -5,6 +5,7 @@ import com.banking.bankingapp.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -28,4 +29,25 @@ public class AccountController {
     public Account getAccountById(@PathVariable Long id) {
         return accountService.getAccountById(id);
     }
+
+    @PostMapping("/{id}/deposit")
+    public Account deposit(@PathVariable Long id, @RequestParam BigDecimal amount) {
+        return accountService.deposit(id, amount);
+    }
+
+    @PostMapping("/{id}/withdraw")
+    public Account withdraw(@PathVariable Long id, @RequestParam BigDecimal amount) {
+        return accountService.withdraw(id, amount);
+    }
+    @PostMapping("/transfer")
+public Account transfer(
+    @RequestParam Long fromId,
+    @RequestParam Long toId,
+    @RequestParam BigDecimal amount) {
+    return accountService.transfer(fromId, toId, amount);
+}
+
+   
+
+
 }
